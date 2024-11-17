@@ -14,4 +14,63 @@ SSG...静的サイト生成とは、実行前に静的ファイルを生成し�
 
  <!-- 11/16(火) -->
   reactとは...Facebook社が開発したUIライブラリ。コンポーネント(見た目と機能が組み合わさったもの)が特徴で組み合わせて画面を作る。仮想DOM(画面を変更するとき、ブラウザに処理を任せないでJavascriptエンジンで再描画する)を使う。DOMの状態をJavaScriptで管理。仮想DOMで差分のみを描画し、実際のDOMでは関連する箇所だけ再描画される。
+  JSXとは
 
+  - JSの拡張言語
+  - HTMLライクな記述+JSの構文が使える
+      
+      ![スクリーンショット 2024-11-16 23.18.05.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f77f301a-d5c5-4a34-9ab1-e019f76298e1/e77a6678-44b4-4e45-96b4-8151f31ab5d2/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88_2024-11-16_23.18.05.png)
+      
+  - 最終的にReact要素を生成する
+  - Reactをブラウザ表示する時、HTMLにReact.createElementで変換する。JSXはReact.createElementをHTMLライクに書けるようにしたもので使いやすい
+  - JSXはコンパイル時にReact.createElementの式に変換しReact要素を生成する。
+  
+  JSXの基礎文法
+  
+  - Reactライブラリをimportする
+  - return分の中がJSXの構文になる。
+      - 基本はHTMLと同じ
+      - classはclassNameになる
+          
+          ![スクリーンショット 2024-11-16 23.24.47.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f77f301a-d5c5-4a34-9ab1-e019f76298e1/22f30f6b-44eb-4631-aa15-03d274eef962/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88_2024-11-16_23.24.47.png)
+          
+  - キャメルケースで記述
+      - JSXはJSなので-が使えない
+  - {}内で変数を扱える
+      - {}内はJSの世界になる
+  - 一つのタグで完了するときも閉じタグが必要
+      
+      ![スクリーンショット 2024-11-16 23.26.42.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f77f301a-d5c5-4a34-9ab1-e019f76298e1/5d3c4f16-d572-4c73-82e4-fd4ed91aef38/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88_2024-11-16_23.26.42.png)
+      
+  - JSXは必ず階層構造
+      - 最上位コンポーネントは並列にできない
+      - 並列にしたい場合のみdivタグではなく、React.Fragmentで囲むべき
+          - React.Fragmentは省略で書ける
+          - HTMLではdivタグは意味なく、意図がなければdivタグを使わない方がいい。形が崩れる原因にもなる
+          
+          ![スクリーンショット 2024-11-16 23.31.57.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f77f301a-d5c5-4a34-9ab1-e019f76298e1/a6c1bc38-2194-4b96-8af5-324cbdee4e5c/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88_2024-11-16_23.31.57.png)
+          
+  
+  Reactのファイル構造
+  
+  - src
+      - 開発用ファイルが格納
+      - ReactコンポーネントのJSXファイルなどはここ
+  - public
+      - 静的ファイル
+      - htmlや画像ファイル
+  - build
+      - 本番用ファイル
+      - npm run buildで生成される
+  
+  コマンド
+  
+  - package.jsonに以下のコマンドが書かれている
+  - npm start
+      - ホットリロード対応
+      - ローカルでアプリ確認できる
+  - npm run build
+      - 本番用ファイルを生成してbuildディレクトリに出力
+      - srcとpublicファイルを1つにまとめる(バンドル)
+  - npm run eject
+      - BabelやWebpackの設定を変えたい時に使う
